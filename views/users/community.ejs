@@ -1,0 +1,92 @@
+<% include ../partials/header %>
+<style media="screen">
+   #Communitybtn {color:#fff;font-weight: bold;}
+  ul {padding: 0;text-align: center;}
+  /* Community Member Styles  */
+  .item {
+    display: inline-block;
+    border: 2px solid #000;
+    padding: 15px;
+    font-size: 18px;
+    color:#000;
+    text-align: center;
+    margin: auto;
+    max-width: 210px;
+    width: 100%;
+    position: sticky;
+  }
+  .item a { color: #000; font-weight: bold;}
+  .item img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    border-bottom:1px solid #000;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .wrapper {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  align-items: center;
+}
+@media screen and (max-width:1200px) {
+  .wrapper{
+    grid-template-columns: auto auto auto
+  }
+}
+@media screen and (max-width:860px) {
+  .wrapper{
+    grid-template-columns: auto auto
+  }
+}
+@media screen and (max-width:600px) {
+  .wrapper{
+    grid-template-columns: auto;
+  }
+}
+.item {
+  margin: 25px auto;
+}
+</style>
+<% include ../partials/nav %>
+
+<h3><%= title %> Community
+</h3>
+
+<p><%= users.length%> memebers in our community</p>
+
+<div class="container text-center">
+
+  <form action="/user/community/member" method="Post" class="form-inline text-center" id="movie-search">
+    <div class="memberSrch" style="">
+      <input style="width:100%;text-align:center;"type="text" id="schFld" name="search" required placeholder="Search community by member name.." class="form-control">
+      <input style="font-weight:bold;"class="btn btn-default btn-block" id="srcBtn"  type="submit" value="Search" >
+    </div>
+  </form><br>
+  <a style="color:#000;" href="/user/community/all">Clear Search</a><br>
+  <div class="text-center">
+    <h3><%= errMsg %></h3>
+  </div>
+  <br>
+
+  <div class="row">
+    <ul class="wrapper">
+      <% users.forEach(function(user){ %>
+        <li class="item">
+          <a href="/user/<%= user.username %>">
+          <% if(user.avatar){ %>
+            <img id="profilePic" src="<%= user.avatar %>" style="margin-top: 10px;width:180px;height:180px;" alt="">
+          <%}else{ %>
+            <img id="profilePic" src="/images/profile_avatar.png" style="margin-top: 10px;width:180px;height:180px;" alt="">
+          <%}%>
+          <h3><%= user.username%></h3>
+           </a>
+        </li>
+      <%})%>
+    </ul>
+  </div>
+
+</div>
+
+<% include ../partials/footer %>

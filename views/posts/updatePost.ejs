@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+
+    <div class="text-center container lead">
+      <h1 class=""><%= title %></h1>
+      <p>Welcome to <%= title %>Update Page </p>
+
+    </div>
+
+    <div class="container jumbotron">
+
+      <div class=" text-center">
+              <form class="box text-center" action="/posts/save/<%= ent[0].id %>" method="post">
+              <div class="">
+                <label for="subject">Subject</label>
+                <input class="form-control"type="text" name="subjectUpdate" id="subject" value="<%= ent[0].subject %>">
+              </div>
+
+              <div class="">
+                <label for="body">Body</label>
+                <input class="form-control"type="text" name="bodyUpdate" id="body" value="<%= ent[0].body %>">
+              </div><br>
+              <div class="">
+
+                <button type="submit" class="btn " name="button">Save Editted Data</button>
+                <a href="/posts/<%= ent[0].id %>" class="cancelEditBtn">Cancel</a>
+              </div>
+            </form>
+
+
+
+      </div>
+    </div>
+
+<% include ../partials/footer %>

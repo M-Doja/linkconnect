@@ -1,0 +1,34 @@
+body {
+  padding: 10px 25px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#inboxAll tr th {
+  text-align: center;
+}
+#inboxAll {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#inboxAll td, #inboxAll th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#inboxAll tr:nth-child(even){background-color: #f2f2f2;}
+
+#inboxAll tr:hover {background-color: #ddd;}
+
+#inboxAll th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #222;
+    color: white;
+}

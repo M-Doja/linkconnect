@@ -1,0 +1,227 @@
+<% include ../partials/header %>
+<style media="screen">
+  #Profilebtn {color:#fff;font-weight: bold;}
+  .follow {
+    display: inline-block;
+    margin: 8px;
+  }
+  .navbar-inverse .navbar-brand {color:white;font-style:'Arial'; font-size: 25px}
+
+</style>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <% if(!user){%>
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><span ><%= title %></span> </a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    <%} else { %>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/user/home"><%= title %></a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class=""><a id="Homebtn"href="/user/home">Home</a></li>
+          <li  class=""><a id="Profilebtn" href="/user/<%= currentUser.username %>">Profile </a></li>
+          <li><a id="Communitybtn" href="/user/community/all">Community</a></li>
+          <li><a id="Postbtn" href="/posts/all">Posts</a></li>
+          <li><a id="Inboxbtn" href="/inbox/all">Inbox
+            <% if(unread !== undefined) { %>
+              (<%= unread %>)
+            <% } %>
+            </a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+          </ul>
+
+      </div>
+    <%}%>
+  </div>
+</nav>
+
+
+    <div class="container-fluid pt-3">
+      <div class="text-center">
+        <h1>Profile Page</h1>
+      </div>
+      <div class="row">
+        <% if( currentUser.id === user.id) { %>
+          <div class="container-fluid">
+          	<div class="row">
+          		<div class="col-md-6  text-center">
+                <div  id="picWrap">
+
+                    <% if(unread === 1) { %>
+                      <i><%= unread  %> New Message</i>
+                    <%}else{ %>
+                      <i><%= unread  %> New Messages</i>
+                    <%}%><br><br>
+                    <% if(user.avatar){ %>
+                      <img id="profilePic" src="<%= user.avatar %>"width="150" alt="">
+                    <%}else{ %>
+                      <img id="profilePic" src="/images/profile_avatar.png"width="150" alt="">
+                    <%}%>
+
+                    <p class="profileName">
+                      <br>
+                      Profile: <b><%= user.username %></b> <br>
+                    </p>
+                    <a href="/user/<%= user.username %>/settings"class="btn btn-default rounded"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+
+                </div>
+                <br>
+                <% if( entry.length === 1) { %>
+                  <p><%= entry.length %> doccument created</p>
+                <% } else { %>
+                  <p><%= entry.length %> documents created</p>
+                <% } %>
+
+          		</div>
+          		<div class="col-md-6  text-center">
+                <h2>Stats</h2>
+
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="tabbable" id="tabs-704485">
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item active">
+                          <a style="color:#000;"class="nav-link" href="#tab1" data-toggle="tab"><%= user.followers.length %> Followers</a>
+                        </li>
+                        <li class="nav-item">
+                          <a style="color:#000;"class="nav-link " href="#tab2" data-toggle="tab">Following <%= user.following.length %></a>
+                        </li>
+                        <li class="nav-item">
+                          <a style="color:#000;"class="nav-link " href="#tab3" data-toggle="tab">Posts <%= user.posts.length %></a>
+                        </li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                          <p>
+                            Followers
+                          </p>
+                          <% user.followers.forEach(function(person){ %>
+                            <div class="follow">
+                              <a href="/user/<%= person.name %>">
+                                <div class="tile">
+                                  <% allUsers.forEach((user) => { %>
+                                  <% if ( user.username === person.name) { %>
+                                    <% if(user.avatar){ %>
+                                      <img id="profilePic" src="<%= user.avatar %>"width="75" alt=""><br>
+                                    <% } else { %>
+                                      <img id="profilePic" src="/images/profile_avatar.png"width="75" alt=""><br>
+                                    <% } %>
+                                   <% } %>
+                                   <% }) %>
+                                  <%= person.name%>
+                                </div>
+                              </a>
+                            </div>
+
+                          <%})%>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                          <p>
+                            Following
+                          </p>
+                          <% user.following.forEach(function(person){ %>
+                            <div class="follow" >
+                              <a href="/user/<%= person.name %>">
+                                <div class="tile">
+                                  <% allUsers.forEach((user) => { %>
+                                  <% if ( user.username === person.name) { %>
+                                    <% if(user.avatar){ %>
+                                      <img id="profilePic" src="<%= user.avatar %>"width="75" alt=""><br>
+                                    <% } else { %>
+                                      <img id="profilePic" src="/images/profile_avatar.png"width="75" alt=""><br>
+                                    <% } %>
+                                   <% } %>
+                                   <% }) %>
+                                  <%= person.name%>
+                                </div>
+                              </a>
+                            </div>
+                          <%})%>
+                        </div>
+                        <div class="tab-pane" id="tab3"><br>
+                          <% entry.forEach(function(ent) { %>
+                            <div class="follow">
+                              <% if(ent.author === user.username) { %>
+                                <p><a style="color:#000;Font-weight:bold;text-shadow: 1px 1px 1px red" href="/posts/<%= ent._id %>"><%= ent.subject %></a> </p>
+                              <% } %>
+                            </div>
+                          <% }) %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          		</div>
+          	</div>
+          </div>
+
+        <% }else{ %>
+          <div class="container-fluid">
+        	<div class="row">
+        		<div class="col-md-6  text-center">
+
+                  <% if(user.avatar){ %>
+                    <img id="profilePic" src="<%= user.avatar %>" style="margin-top: 10px;width:180px;height:180px;" alt="">
+                  <%}else{ %>
+                    <img id="profilePic" src="/images/profile_avatar.png" style="margin-top: 10px;width:180px;height:180px;" alt="">
+                  <%}%>
+
+
+              <% if( isFollowing ) { %>
+                <form class="" action="/user/remove/follower/<%= user.id %>" method="post">
+                  <br>
+                  <button type="submit" >Un-Follow <%= user.username %></button>
+                </form><br>
+              <% } else { %>
+                <form class="" action="/user/add/follow/<%= user.id %>" method="post">
+                  <br>
+                  <button type="submit" >Follow <%= user.username %></button>
+                </form><br>
+              <% } %>
+        		</div><br><br>
+        		<div class="col-md-6  text-center">
+        			<form role="form"action="/user/<%= user.username %>/new/message" method="post">
+        				<div class="form-group">
+        					<label for="subject">
+        						Subject
+        					</label>
+        					<input type="text" id="mailSubject" name="mailSubject" class="form-control" id="subject" />
+        				</div>
+
+        				<div class="form-group">
+        					<label for="body">
+        						Body
+        					</label>
+                  <textarea name="mailBody" class="form-control" id="body"></textarea>
+        				</div>
+
+        				<button type="submit" class="btn btn-primary">
+        					Submit
+        				</button>
+                <br><br>
+
+        			</form>
+        		</div>
+        	</div>
+        </div>
+        <% } %>
+
+      </div>
+    </div>
+
+<% include ../partials/footer %>

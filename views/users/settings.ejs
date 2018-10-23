@@ -1,0 +1,80 @@
+<% include ../partials/header%>
+<style media="screen">
+  /* Member Settings Styles  */
+  .picDisplay {
+    margin: 40px auto;
+    border: 3px solid #000;
+    max-width: 500px;
+    width: 100%;
+    padding: 15px;
+    background-color: #eee;
+  }
+  .picDisplay img {
+    max-width: 300px;
+    width: 100%;
+    border: 1.5px solid #000;
+    border-radius: 5px;
+  }
+</style>
+<!--
+upload profile photo
+delete profile photo
+change password
+delete user account
+-->
+<% include ../partials/nav %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tabbable" id="tabs-704485">
+        <ul class="nav nav-tabs">
+          <li class="nav-item active">
+            <a style="color:#000;font-weight:bold;"class="nav-link" href="#tab1" data-toggle="tab">Profile Avatar</a>
+          </li>
+          <li class="nav-item">
+            <a style="color:#000;font-weight:bold;"class="nav-link" href="#tab2" data-toggle="tab">Account Setting</a>
+          </li>
+          <li class="nav-item">
+            <a style="color:#000;font-weight:bold;"class="nav-link" href="/user/<%= user.username %>">Back To Profile</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab1">
+
+            <div class="text-center">
+              <div class="picDisplay text-center">
+                <% if(user.avatar){ %>
+                  <p><i>Current Profile Photo</i> </p>
+                  <img src="<%= user.avatar %>" class="img-fluid" alt="">
+                <% }else { %>
+                  <p><i>Default Profile Photo</i> </p>
+                  <img style="padding:15px;" id="profilePic" src="/images/profile_avatar.png" alt="">
+                <% } %>
+              </div>
+              <form style="margin:0 auto" action="/upload/avatar/new/<%= user.id %>" method="post" enctype="multipart/form-data">
+                <div class="text-center form-group">
+                  <input style="margin:10px  auto" type="file" id="image" name="image" accept="image/*" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-default rounded"><span class="glyphicon glyphicon-upload"></span> Photo Upload</button>
+              </form>
+            </div>
+
+          </div>
+          <div class="tab-pane text-center" id="tab2">
+            <br>
+            <p>
+              <b>Features will include:</b>
+              <ul style="padding:0;">
+                <li style="list-style:none;">Password Reset</li>
+                <li style="list-style:none;">Close Account</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../partials/footer%>

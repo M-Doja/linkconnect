@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+
+    <div class="text-center">
+      <div class="msgCard">
+        <div class="msg">
+          <form class="" action="/inbox/remove/<%= mail._id %>" method="post">
+            <button class="delBtn" id="trashLink" type="submit" ><i class="fa fa-trash" style="font-size:24px"></i></button>
+          </form>
+          <h3> <%= mail.subject %></h3>
+          <p><b>Recieved</b>: <%= mail.date.toDateString() %> | <b>From</b>: <%= mail.fromName %></p>
+          <p><b>Message</b>: <br> <%= mail.body %></p>
+        </div>
+      </div>
+    </div><hr>
+    <div class="replyFormWrap text-center">
+      <form class="replyForm" action="/inbox/<%= mail._id %>/reply" method="post">
+        <input style="border-radius:8px;text-align:center;" type="text" name="mailReplySubject" placeholder="Subject.."><br><br>
+        <textarea id="replyBody" name="mailReply" required placeholder="Text here..."></textarea><br>
+
+        <button id="replyBtn"type="submit">Reply</button>
+      </form>
+
+    </div>
+
+
+<% include ../partials/footer %>

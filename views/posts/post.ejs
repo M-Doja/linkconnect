@@ -1,0 +1,58 @@
+<% include ../partials/header %>
+
+    <% include ../partials/nav %>
+
+
+    <div class="text-center container lead">
+
+        <div style=""class="box text-center" id="">
+
+          <div class="" id="">
+          <% if(entry.length > 0){ %>
+            <div style="color:#000;" class="text-center  jumbotron">
+              
+
+              <h2><b><%= entry[0].subject %></b> </h2>
+              <i>By: <a href="/user/<%= entry[0].author %>"><%= entry[0].author %></a> </i>
+
+            </div>
+            <% entry.forEach(function(doc){ %>
+              <div class="" >
+                <p style="font-size: 18px;">Published: <%= entry[0].date.toDateString() %></p>
+                <h3><b><%= doc.subject %></b> </h3>
+                  <p><%= doc.body %></p>
+                  <br><br>
+                  <% if( currentUser.id === doc.authorId) { %>
+
+                    <form class="ctrl" action="/posts/delete/<%= doc.id %>" method="post">
+                      <button class="btn"type="submit" data-toggle="tooltip" title="Are you sure ? This is permanent!">delete</button>
+                    </form>
+
+                    <form class="ctrl" action="/posts/update/<%= doc.id %>" method="post">
+                      <button class="btn"type="submit">update</button>
+                    </form>
+
+                  <% }else{ %>
+
+                    <form class="voteForm up" action="/posts/<%= doc.id %>/vote/up" method="post">
+                      <button type="submit"> <i class="fa fa-thumbs-up"></i>  <%= doc.upvotes.length %></button>
+                    </form>
+                    <form class="voteForm down" action="/posts/<%= doc.id %>/vote/down" method="post">
+                      <button type="submit"> <i class="fa fa-thumbs-down"></i> <%= doc.downvotes.length %></button>
+                    </form>
+                  <% } %>
+
+
+
+
+              </div>
+            <% }); %>
+
+          <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<% include ../partials/footer %>

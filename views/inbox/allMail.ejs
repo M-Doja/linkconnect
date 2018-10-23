@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+<style media="screen">
+  #Inboxbtn {color:#fff;font-weight: bold;}
+</style>
+  <% include ../partials/nav %>
+
+    <div class="container-fluid ">
+      <div class=" text-center">
+        <!-- <h1>Inbox Page</h1> -->
+
+      </div>
+      <div class="row">
+        <br><br>
+        <table id="inboxAll" class="text-center">
+          <tr>
+            <th>Date </th>
+            <th>Subject</th>
+            <th>From</th>
+            <th>Delete</th>
+          </tr>
+          <% inbox.forEach((mail) => { %>
+            <tr>
+              <td><%= mail.date.toLocaleDateString()  %></td>
+
+              <% if(  !mail.seen  ) { %>
+                <td><a style="color: red" href="/inbox/read/<%= mail._id %>"><b><%= mail.subject %></b> </a></td>
+              <%} else { %>
+                <td><a style="color:#000;" href="/inbox/read/<%= mail._id %>"><b><%= mail.subject %></b></a></td>
+              <%}%>
+
+              <td><a a style="color:#000;" href="/<%= mail.fromName %>"><%= mail.fromName %></a> </td>
+              <td>
+                <form class="" action="/inbox/remove/<%= mail._id %>" method="post">
+                  <button class="delBtn" style="border-radius:5px;"type="submit"><i class="fa fa-trash" style="font-size:20px"></i></button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+
+        </table>
+      </div>
+    </div>
+
+<% include ../partials/footer %>

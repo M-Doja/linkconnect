@@ -1,0 +1,37 @@
+<% include ../partials/header %>
+
+
+
+  <div class="text-center container lead">
+    <h1 class=""><%= title %></h1>
+    <p>Welcome to <%= title %> </p>
+  </div>
+
+  <div class="container jumbotron">
+
+    <!-- <div class="wrapper"> -->
+
+      <form class="box text-center" action="/posts/new" method="post">
+        <h2>New Post Form</h2>
+        <div class="">
+          <label for="subject">Subject</label>
+          <input class="form-control"type="text" required name="subject" id="subject" value="">
+        </div>
+
+        <div class="">
+          <label for="body">Body</label>
+          <textarea required class="form-control" required name="body"id="body" rows="8" cols="60"></textarea>
+        </div><br>
+
+        <div class="">
+          <button type="submit" class="btn " name="button">Add New Post</button>
+          <a style="color:#000;" href="/posts/all">Cancel</a>
+        </div>
+      </form>
+
+
+    <!-- </div> -->
+  </div>
+
+
+<% include ../partials/footer %>
