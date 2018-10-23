@@ -59,17 +59,32 @@ delete user account
                 <br>
                 <button type="submit" class="btn btn-default rounded"><span class="glyphicon glyphicon-upload"></span> Photo Upload</button>
               </form>
+              <form class="" action="/upload/remove/img/<%= user.id %>" method="post"><br>
+                <button  class="btn btn-default rounded"type="submit" >Remove Photo</button>
+              </form>
             </div>
 
           </div>
           <div class="tab-pane text-center" id="tab2">
             <br>
             <p>
-              <b>Features will include:</b>
-              <ul style="padding:0;">
-                <li style="list-style:none;">Password Reset</li>
-                <li style="list-style:none;">Close Account</li>
-              </ul>
+            
+                <div class="container">
+                  <form class="CloseActForm" action="/user/<%= user.username %>/acct_cancel" method="post">
+                    <div class="">
+                      <h3></h3>
+                      <button class="text-center btn btn-info rounded"type="button" data-toggle="collapse" data-target="#demo"><b>View Your Data Stored</b>  </button><br><br>
+                      <div class="collapse " id="demo">
+                        <div class="pt-3 text-center">
+                          <%= user %>
+                        </div>
+                      </div>
+
+                    </div><br><br>
+                    <button type="submit" data-toggle="tooltip" title="Are you sure? THIS IS PERMANENT!"class="btn btn-danger rounded pt-3">Close Account</button>
+                  </form>
+                </div>
+
             </p>
           </div>
         </div>

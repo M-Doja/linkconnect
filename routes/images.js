@@ -54,4 +54,20 @@ router.post('/avatar/new/:id', Mid.isLoggedIn, upload.single('image'),(req, res,
   });
 });
 
+router.post('/remove/img/:id', (req, res, next) => {
+  User.findById({'_id': req.user.id}, function(err, user){
+    var imgStats = user.avatar.split('/');
+    var idArr = imgStats[7].split('.')
+    cloudinary.v2.uploader.destroy(idArr[0], function(error, result){
+      if (err) {
+        res.send(err)
+      }
+      user.avatar = '';
+      user.save(function(err){
+        res.redirect(`/user/${req.user.username}/settings`)
+      });
+    })
+  })
+})
+
 module.exports = router;

@@ -14,18 +14,7 @@ var userSchema = new mongoose.Schema({
   posts : [],
   inbox: [],
   seen: [],
-  sent: [],
-  subscriptions : [{
-    authorName: String,
-    authorId: String,
-    postId: String,
-    postSubject: String
-  }],
-  subscribers: [{
-    subscriberName: String,
-    subscriberId: String,
-    subscriberImage: String
-  }]
+  sent: []
 });
 
 mongoose.plugin(schema => { schema.options.usePushEach = true });

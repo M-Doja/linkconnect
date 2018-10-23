@@ -52,7 +52,7 @@
 
     <div class="container-fluid pt-3">
       <div class="text-center">
-        <h1>Profile Page</h1>
+        <h1><%= name %> Profile</h1>
       </div>
       <div class="row">
         <% if( currentUser.id === user.id) { %>
@@ -74,17 +74,11 @@
 
                     <p class="profileName">
                       <br>
-                      Profile: <b><%= user.username %></b> <br>
+                      <a href="/user/<%= user.username %>/settings"class="btn btn-default rounded"><span class="glyphicon glyphicon-cog"></span> Settings</a>
                     </p>
-                    <a href="/user/<%= user.username %>/settings"class="btn btn-default rounded"><span class="glyphicon glyphicon-cog"></span> Settings</a>
 
                 </div>
                 <br>
-                <% if( entry.length === 1) { %>
-                  <p><%= entry.length %> doccument created</p>
-                <% } else { %>
-                  <p><%= entry.length %> documents created</p>
-                <% } %>
 
           		</div>
           		<div class="col-md-6  text-center">
@@ -112,7 +106,7 @@
                           </p>
                           <% user.followers.forEach(function(person){ %>
                             <div class="follow">
-                              <a href="/user/<%= person.name %>">
+                              <a style="color:#000;" href="/user/<%= person.name %>">
                                 <div class="tile">
                                   <% allUsers.forEach((user) => { %>
                                   <% if ( user.username === person.name) { %>
@@ -136,7 +130,7 @@
                           </p>
                           <% user.following.forEach(function(person){ %>
                             <div class="follow" >
-                              <a href="/user/<%= person.name %>">
+                              <a style="color:#000;" href="/user/<%= person.name %>">
                                 <div class="tile">
                                   <% allUsers.forEach((user) => { %>
                                   <% if ( user.username === person.name) { %>

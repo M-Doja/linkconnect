@@ -98,14 +98,17 @@ app.get('/logout', (req, res) => {
 /* POST Log In */
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user) {
-    if (err) return next(err);
-
+    if (err) {
+      return res.render('login',{ title:'Link Connect', success : false, errMsg : err.message });
+    }
+    
     if (! user) {
        res.render('login',{ title:'Link Connect', success : false, errMsg : 'Invalid username or password!' });
     }
+
     req.login(user, function(err){
       if(err){
-        return next(err);
+        return res.render('login',{ title:'Link Connect', success : false, errMsg : err.message });
       }
        res.redirect('/user/home');
     });
@@ -114,6 +117,7 @@ app.post('/login', function(req, res, next) {
 
 /* POST Sign Up */
 app.post('/register', (req, res) => {
+
   User.register(new User({
     username: req.body.username,
   }),req.body.password, (err, user) => {
@@ -148,7 +152,7 @@ io.on('connection', (socket) => {
     users.removeUser(socket.id);
     users.addUser(socket.id, params.name, params.room)
     io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-    socket.emit('newMessage', generateMessage('Admin','Welcome to Chat Node'));
+    socket.emit('newMessage', generateMessage('Admin',`Welcome to Chat Node ${params.name}`));
     socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',`${params.name} has joined the room`));
     cb();
   });

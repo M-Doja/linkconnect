@@ -58,12 +58,9 @@
 
 <div class="container text-center">
 
-  <form action="/user/community/member" method="Post" class="form-inline text-center" id="movie-search">
-    <div class="memberSrch" style="">
-      <input style="width:100%;text-align:center;"type="text" id="schFld" name="search" required placeholder="Search community by member name.." class="form-control">
-      <input style="font-weight:bold;"class="btn btn-default btn-block" id="srcBtn"  type="submit" value="Search" >
-    </div>
-  </form><br>
+  <input style="width:100%;text-align:center;"type="text" id="myInput" onkeyup="myFunction()" name="search" required placeholder="Search community by member name.." class="form-control">
+
+  <br>
   <a style="color:#000;" href="/user/community/all">Clear Search</a><br>
   <div class="text-center">
     <h3><%= errMsg %></h3>
@@ -71,7 +68,7 @@
   <br>
 
   <div class="row">
-    <ul class="wrapper">
+    <ul class="wrapper" id="myUL">
       <% users.forEach(function(user){ %>
         <li class="item">
           <a href="/user/<%= user.username %>">
@@ -80,7 +77,14 @@
           <%}else{ %>
             <img id="profilePic" src="/images/profile_avatar.png" style="margin-top: 10px;width:180px;height:180px;" alt="">
           <%}%>
-          <h3><%= user.username%></h3>
+            <% if(user.username.split(' ').length < 2){ %>
+              <h3><%= user.username.charAt(0).toUpperCase() + user.username.slice(1).toLowerCase() %></h3>
+            <% } else { %>
+              <h3><%=
+                user.username.split(' ')[0].charAt(0).toUpperCase()+ user.username.split(' ')[0].slice(1).toLowerCase()
+                +' '+user.username.split(' ')[1].charAt(0).toUpperCase()+ user.username.split(' ')[1].slice(1).toLowerCase()
+                %></h3>
+            <% } %>
            </a>
         </li>
       <%})%>
@@ -88,5 +92,24 @@
   </div>
 
 </div>
+<script>
+function myFunction() {
+    // Declare variables
+    var input, filter, ul, li, a, i;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName('li');
 
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
 <% include ../partials/footer %>

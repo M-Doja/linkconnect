@@ -6,10 +6,12 @@ var Post = require('../models/post');
 var Message = require('../models/message');
 
 
+
 /* @ GET Home Page */
 router.get('/home', Mid.isLoggedIn, function(req, res, next) {
   var numUnRead = req.user.inbox.length - req.user.seen.length;
-  res.render('users/home', {title: 'Link Connect', user: req.user, unread: numUnRead});
+  var userName = Mid.capitalizeName(req.user.username);
+  res.render('users/home', {title: 'Link Connect', name: userName, user: req.user, unread: numUnRead});
 });
 
 // Show All Messgaes
@@ -83,6 +85,7 @@ router.get('/:username', Mid.isLoggedIn, function(req, res, next) {
               }
             }
           });
+          var name = Mid.capitalizeName(user.username)
           res.render('users/profile', {
             title: 'Link Connect',
             currentUser: req.user,
@@ -90,6 +93,7 @@ router.get('/:username', Mid.isLoggedIn, function(req, res, next) {
             allUsers: allUsers,
             unread: numUnRead,
             entry: allPosts,
+            name: name,
             isFollowing: iFollowYou
           });
         }
@@ -100,8 +104,10 @@ router.get('/:username', Mid.isLoggedIn, function(req, res, next) {
 
 /* GET Profile Settings Page */
 router.get('/:username/settings', Mid.isLoggedIn, function(req, res, next) {
-  res.render('users/settings', {title: 'Link Connect', user: req.user});
+  var numUnRead = req.user.inbox.length - req.user.seen.length;
+  res.render('users/settings', {title: 'Link Connect', user: req.user, unread:numUnRead});
 });
+
 
 /* GET Community Page */
 router.get('/community/all', Mid.isLoggedIn, function(req, res, next) {
@@ -109,6 +115,22 @@ router.get('/community/all', Mid.isLoggedIn, function(req, res, next) {
     if (err) {
       res.send(err)
     }
+
+
+    function capitalizeName(){
+      for (var i = 0; i < allUsers.length; i++) {
+        var nm = allUsers[i].username;
+        nm = nm.split('');
+        if (nm.length > 1) {
+          var first = nm[0].charAt(0).toUpperCase() + nm[0].slice(1).toLowerCase();
+          var last = nm[1].charAt(0).toUpperCase() + nm[1].slice(1).toLowerCase();
+          return nm = first +' '+ last;
+        }else {
+          return nm =  nm[0].charAt(0).toUpperCase() + nm[0].slice(1).toLowerCase();
+        }
+      }
+    }
+
     var numUnRead = req.user.inbox.length - req.user.seen.length;
 
     res.render('users/community', {
@@ -121,34 +143,6 @@ router.get('/community/all', Mid.isLoggedIn, function(req, res, next) {
   })
 });
 
-/* Post Find Community Member */
-router.post('/community/member', Mid.isLoggedIn, function(req, res, next) {
-  const reqSearch = req.body.search;
-  User.find({'username': req.body.search.toLowerCase()}, function(err, user){
-    if (err) {
-      return res.redirect('/user/community/all');
-    }
-    if (user[0] === undefined ) {
-      return res.render('users/community', {
-        unread:numUnRead,
-        title: 'Link Connect',
-        users: user,
-        user : req.user,
-        errMsg:'Sorry no user found by that name'
-      })
-    }else {
-      var numUnRead = req.user.inbox.length - req.user.seen.length;
-      return res.render('users/community', {
-        unread:numUnRead,
-        title: 'Link Connect',
-        users: user,
-        user : req.user,
-        errMsg:''
-      })
-    }
-
-  })
-});
 
 /* Post Add User to Follow */
 router.post('/add/follow/:id', Mid.isLoggedIn, (req, res, next) => {
@@ -226,6 +220,15 @@ router.post('/remove/follower/:id', Mid.isLoggedIn, (req, res, next) => {
   });
 });
 
+
+router.post('/:username/acct_cancel', (req, res, next) => {
+  User.findOneAndDelete({'username': req.params.username},  function(err, doc) {
+    if (err) {
+      res.send(err)
+    }
+    res.redirect('/');
+  });
+});
 
 
 module.exports = router;
