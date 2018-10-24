@@ -37,3 +37,10 @@ a {
   background-color: #d9534f;
   border-color: #d43f3a;
 }
+
+.postLink,
+.postLink:hover {
+  color:#000;
+  font-weight:bold;
+  text-shadow: 1px 1px 1px red;
+}

@@ -10,12 +10,35 @@ router.get('/new', Mid.isLoggedIn, function(req, res, next) {
   res.render('posts/newPost', {user: req.user,title: 'Link Connect'});
 });
 
+
+function capSentence(str){
+  var cell = []
+  var words = '';
+  str = str.split(' ');
+  for (let i = 0; i < str.length; i++) {
+    cell.push(str[i].charAt(0).toUpperCase() + str[i].slice(1).toLowerCase())
+  }
+  for (var i = 0; i < cell.length; i++) {
+    words += cell[i] + ' ';
+  }
+  return words;
+}
+
 /* Get Posts Page */
 router.get('/all', Mid.isLoggedIn, (req, res) => {
   Post.find({}, function(err, allPosts){
     if (err) {
       res.send(err);
     }
+    var formattedSubject = [];
+    for (var i = 0; i < allPosts.length; i++) {
+      allPosts[i].subject = capSentence(allPosts[i].subject);
+    }
+
+    allPosts.sort(function(a,b){
+     return new Date(b.date) - new Date(a.date);
+   });
+
     var numUnRead = req.user.inbox.length - req.user.seen.length;
   res.render('posts/allPosts', {user: req.user,title: 'Link Connect',unread: numUnRead,entry: allPosts});
   });
@@ -44,6 +67,7 @@ router.post('/new', Mid.isLoggedIn, function(req, res, next) {
         }
 
         user.posts.push({
+          postName: post.subject,
           postId: post.id,
           postDate: post.date.getDate()
         });
@@ -69,7 +93,8 @@ router.get('/:id', Mid.isLoggedIn, function(req, res, next) {
       res.send(err)
     }
     var numUnRead = req.user.inbox.length - req.user.seen.length;
-    res.render('posts/post', { user: req.user, currentUser:req.user, entry:post,unread: numUnRead, title: 'Link Connect'});
+
+    res.render('posts/post', { postTitle: Mid.capitalizeName(post[0].subject), name: Mid.capitalizeName(post[0].author), user: req.user, currentUser:req.user, entry:post,unread: numUnRead, title: 'Link Connect'});
   })
 });
 

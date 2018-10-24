@@ -85,6 +85,9 @@ router.get('/:username', Mid.isLoggedIn, function(req, res, next) {
               }
             }
           });
+          for (var i = 0; i < user.posts.length; i++) {
+            user.posts[i].postName = Mid.capSentence(user.posts[i].postName);
+          }
           var name = Mid.capitalizeName(user.username)
           res.render('users/profile', {
             title: 'Link Connect',

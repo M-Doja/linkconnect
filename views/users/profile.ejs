@@ -126,7 +126,13 @@
                                     <% } %>
                                    <% } %>
                                    <% }) %>
-                                  <%= person.name%>
+                                   <% if(person.name.split(' ').length < 2){ %>
+                                     <%= person.name.charAt(0).toUpperCase() + person.name.slice(1).toLowerCase() %>                                     <% } else { %>
+                                     <%=
+                                       person.name.split(' ')[0].charAt(0).toUpperCase()+ person.name.split(' ')[0].slice(1).toLowerCase()
+                                       +' '+person.name.split(' ')[1].charAt(0).toUpperCase()+ person.name.split(' ')[1].slice(1).toLowerCase()
+                                       %>
+                                   <% } %>
                                 </div>
                               </a>
                             </div>
@@ -138,6 +144,7 @@
                             Following
                           </p>
                           <% user.following.forEach(function(person){ %>
+
                             <div class="follow" >
                               <a style="color:#000;" href="/user/<%= person.name %>">
                                 <div class="tile">
@@ -150,20 +157,33 @@
                                     <% } %>
                                    <% } %>
                                    <% }) %>
-                                  <%= person.name%>
+                                   <% if(person.name.split(' ').length < 2){ %>
+                                     <%= person.name.charAt(0).toUpperCase() + person.name.slice(1).toLowerCase() %>                                     <% } else { %>
+                                     <%=
+                                       person.name.split(' ')[0].charAt(0).toUpperCase()+ person.name.split(' ')[0].slice(1).toLowerCase()
+                                       +' '+person.name.split(' ')[1].charAt(0).toUpperCase()+ person.name.split(' ')[1].slice(1).toLowerCase()
+                                       %>
+                                   <% } %>
                                 </div>
                               </a>
                             </div>
                           <%})%>
                         </div>
                         <div class="tab-pane" id="tab3"><br>
-                          <% entry.forEach(function(ent) { %>
+
+
                             <div class="follow">
-                              <% if(ent.author === user.username) { %>
-                                <p><a style="color:#000;Font-weight:bold;text-shadow: 1px 1px 1px red" href="/posts/<%= ent._id %>"><%= ent.subject %></a> </p>
-                              <% } %>
+                              <div class="">
+                                <% for (let i=0; i< user.posts.length; i++){ %>
+                                  <div class="">
+                                    <a class="postLink"href="/posts/<%=user.posts[i].postId%>"><%=user.posts[i].postName%></a>
+                                  </div>
+                                <% } %>
+                              </div>
+
+
                             </div>
-                          <% }) %>
+
                         </div>
                       </div>
                     </div>

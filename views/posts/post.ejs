@@ -12,14 +12,17 @@
             <div style="color:#000;" class="text-center  jumbotron">
 
 
-              <h2><b><%= entry[0].subject %></b> </h2>
-              <i>By: <a href="/user/<%= entry[0].author %>"><%= entry[0].author %></a> </i>
+              <h2><b><%= postTitle %></b> </h2>
+
 
             </div>
             <% entry.forEach(function(doc){ %>
               <div class="" >
-                <p style="font-size: 18px;">Published: <%= entry[0].date.toDateString() %></p>
-                <h3><b><%= doc.subject %></b> </h3>
+                <p style="font-size: 18px;">Published:
+                  <%= entry[0].date.toDateString() %> <br>
+                  <i>By: <a href="/user/<%= entry[0].author %>"><%= name %></a> </i>
+                 </p>
+                <h3><b><%= postTitle %></b> </h3>
                   <p><%= doc.body %></p>
                   <br><br>
                   <% if( currentUser.id === doc.authorId) { %>
