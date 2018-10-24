@@ -34,15 +34,61 @@
 
                   <% }else{ %>
 
-                    <form class="voteForm up" action="/posts/<%= doc.id %>/vote/up" method="post">
+                    <form  style="display:inline-block;margin:10px;"class="voteForm up" action="/posts/<%= doc.id %>/vote/up" method="post">
                       <button type="submit"> <i class="fa fa-thumbs-up"></i>  <%= doc.upvotes.length %></button>
                     </form>
-                    <form class="voteForm down" action="/posts/<%= doc.id %>/vote/down" method="post">
+                    <form style="display:inline-block;margin:10px;" class="voteForm down" action="/posts/<%= doc.id %>/vote/down" method="post">
                       <button type="submit"> <i class="fa fa-thumbs-down"></i> <%= doc.downvotes.length %></button>
                     </form>
-                  <% } %>
+                  <% } %><hr>
+                  <% if(doc.comments.length > 0) { %>
+                    <h3><u>Comments</u> </h3>
+                    <div class="userComments">
+                      <ul><hr>
+                        <% doc.comments.forEach(function(com){ %>
+                          <li style="list-style:none;">
+                            <div class="container ">
+                              <div class="row text-center">
+                                <div class="col-xs-6">
+                                  <p><%= com.body %></p>
+                                  <p style="font-size:15px;">
+                                    By:
+                                    <% if(com.commenterName.split(' ').length < 2){ %>
+                                      <%= com.commenterName.charAt(0).toUpperCase() + com.commenterName.slice(1).toLowerCase() %>
+                                    <% } else { %>
+                                      <%=
+                                        com.commenterName.split(' ')[0].charAt(0).toUpperCase()+ com.commenterName.split(' ')[0].slice(1).toLowerCase()
+                                        +' '+com.commenterName.split(' ')[1].charAt(0).toUpperCase()+ com.commenterName.split(' ')[1].slice(1).toLowerCase()
+                                        %>
+                                    <% } %>
+                                  </p>
 
+                                </div>
+                                <div class="col-xs-6">
 
+                                  <i style="font-size:15px"><%= com.createdAt.toLocaleDateString() %></i>
+                                </div>
+                              </div>
+                            </div>
+                          </li><hr>
+
+                        <%})%>
+                      </ul>
+                    </div>
+                  <%}%>
+
+                  <% if(user.id !== doc.authorId) { %>
+                    <div class="commmentForm">
+                      <br><br>
+                      <p><i>Leave a comment</i> </p>
+                      <form class="" role="form" action="/posts/<%= doc.id %>/comments" method="post">
+                        <input autofocus class="form-control" type="text" name="commentBody" placeholder="Comment here...."><br>
+                        <button class="btn btn-default rounded"type="submit">Add Comment</button>
+                      </form>
+                    </div>
+                  <%} else {%>
+
+                  <%}%>
 
 
               </div>

@@ -153,6 +153,7 @@ router.post('/add/follow/:id', Mid.isLoggedIn, (req, res, next) => {
       }
       let alreadyFollowing;
       follower.following.forEach((followedUser) => {
+        console.log('followedUser', followedUser);
         if (req.params.id === followedUser.id) {
           alreadyFollowing = true;
           return alreadyFollowing

@@ -68,14 +68,14 @@ delete user account
           <div class="tab-pane text-center" id="tab2">
             <br>
             <p>
-            
+
                 <div class="container">
                   <form class="CloseActForm" action="/user/<%= user.username %>/acct_cancel" method="post">
                     <div class="">
                       <h3></h3>
                       <button class="text-center btn btn-info rounded"type="button" data-toggle="collapse" data-target="#demo"><b>View Your Data Stored</b>  </button><br><br>
-                      <div class="collapse " id="demo">
-                        <div class="pt-3 text-center">
+                      <div class="collapse text-center" id="demo">
+                        <div style="max-width:500px; width:100%; margin:10px auto;" class=" pt-3 ">
                           <%= user %>
                         </div>
                       </div>

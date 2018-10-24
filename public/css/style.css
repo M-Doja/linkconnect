@@ -32,3 +32,8 @@ a {
     background-color: #222;
     color: white;
 }
+
+.delBtn:hover {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}

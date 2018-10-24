@@ -53,7 +53,15 @@
 
     <div class="container-fluid pt-3">
       <div class="text-center">
-        <h1><%= name %> Profile</h1>
+        <% if(user.username.split(' ').length < 2){ %>
+          <h1><%= user.username.charAt(0).toUpperCase() + user.username.slice(1).toLowerCase() %>  Profile</h1>
+        <% } else { %>
+          <h1><%=
+            user.username.split(' ')[0].charAt(0).toUpperCase()+ user.username.split(' ')[0].slice(1).toLowerCase()
+            +' '+user.username.split(' ')[1].charAt(0).toUpperCase()+ user.username.split(' ')[1].slice(1).toLowerCase()
+            %>  Profile</h1>
+        <% } %>
+
       </div>
       <div class="row">
         <% if( currentUser.id === user.id) { %>
@@ -180,12 +188,32 @@
               <% if( isFollowing ) { %>
                 <form class="" action="/user/remove/follower/<%= user.id %>" method="post">
                   <br>
-                  <button type="submit" >Un-Follow <%= user.username %></button>
+                  <button type="submit" >
+                    Un-Follow
+                    <% if(user.username.split(' ').length < 2){ %>
+                      <%= user.username.charAt(0).toUpperCase() + user.username.slice(1).toLowerCase() %>
+                    <% } else { %>
+                      <%=
+                        user.username.split(' ')[0].charAt(0).toUpperCase()+ user.username.split(' ')[0].slice(1).toLowerCase()
+                        +' '+user.username.split(' ')[1].charAt(0).toUpperCase()+ user.username.split(' ')[1].slice(1).toLowerCase()
+                        %>
+                    <% } %>
+                  </button>
                 </form><br>
               <% } else { %>
                 <form class="" action="/user/add/follow/<%= user.id %>" method="post">
                   <br>
-                  <button type="submit" >Follow <%= user.username %></button>
+                  <button type="submit" >
+                    Follow
+                    <% if(user.username.split(' ').length < 2){ %>
+                      <%= user.username.charAt(0).toUpperCase() + user.username.slice(1).toLowerCase() %>
+                    <% } else { %>
+                      <%=
+                        user.username.split(' ')[0].charAt(0).toUpperCase()+ user.username.split(' ')[0].slice(1).toLowerCase()
+                        +' '+user.username.split(' ')[1].charAt(0).toUpperCase()+ user.username.split(' ')[1].slice(1).toLowerCase()
+                        %>
+                    <% } %>
+                  </button>
                 </form><br>
               <% } %>
         		</div><br><br>
@@ -195,7 +223,7 @@
         					<label for="subject">
         						Subject
         					</label>
-        					<input type="text" id="mailSubject" name="mailSubject" class="form-control" id="subject" />
+        					<input autofocus type="text" id="mailSubject" name="mailSubject" class="form-control" id="subject" />
         				</div>
 
         				<div class="form-group">

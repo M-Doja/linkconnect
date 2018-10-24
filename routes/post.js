@@ -186,4 +186,25 @@ router.post('/:id/vote/down', Mid.isLoggedIn, function(req, res, next){
   })
 });
 
+/* Post Add Comments */
+router.post('/:id/comments', (req, res, next) => {
+  var name = req.user.usernam;
+    Post.findById({'_id': req.params.id}, function(err, post){
+      if (err) {
+        res.send(err);
+      }
+      var newComment = {
+        body:req.body.commentBody,
+        commenterName:req.user.username,
+        commenterId:req.user.id,
+      };
+      post.comments.push(newComment);
+      post.save(function(){
+        res.redirect(`/posts/${req.params.id}`)
+      });
+    })
+});
+
+
+
 module.exports = router;

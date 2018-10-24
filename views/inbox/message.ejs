@@ -2,26 +2,53 @@
 <% include ../partials/nav %>
 
     <div class="text-center">
-      <div class="msgCard">
+      <div class="msgCard" style="max-width:600px; width:100%;margin:25px auto;">
         <div class="msg">
-          <form class="" action="/inbox/remove/<%= mail._id %>" method="post">
+          <form class=""style="float:right" action="/inbox/remove/<%= mail._id %>" method="post">
             <button class="delBtn" id="trashLink" type="submit" ><i class="fa fa-trash" style="font-size:24px"></i></button>
-          </form>
-          <h3> <%= mail.subject %></h3>
-          <p><b>Recieved</b>: <%= mail.date.toDateString() %> | <b>From</b>: <%= mail.fromName %></p>
-          <p><b>Message</b>: <br> <%= mail.body %></p>
+          </form >
+          <br>
+          <div class="msg" style="max-width:500px; width:100%;margin:25px auto;">
+            <h3> <%= mail.subject %></h3>
+            <div class="msgInfo" style="background-color:#aaa;height:50px;padding:15px;border-radius:8px;">
+              <% if(mail.fromName.split(' ').length < 2){ %>
+                <p style="float:left;"><b>From</b>: <%= mail.fromName.charAt(0).toUpperCase() + mail.fromName.slice(1).toLowerCase() %></p>
+              <% } else { %>
+                <p style="float:left;"><b>From</b>: <%=
+                  mail.fromName.split(' ')[0].charAt(0).toUpperCase()+ mail.fromName.split(' ')[0].slice(1).toLowerCase()
+                  +' '+mail.fromName.split(' ')[1].charAt(0).toUpperCase()+ mail.fromName.split(' ')[1].slice(1).toLowerCase()
+                  %></p>
+
+
+              <% } %>
+
+              <p style="float:right;"><b>Recieved</b>: <%= mail.date.toDateString() %> </p>
+            </div><hr>
+            <div class="msgBody pt-3" style="border:2px solid #000;padding:20px 10px;">
+              <p><b>Message</b>: <br><br> <%= mail.body %></p>
+            </div>
+          </div>
         </div>
       </div>
-    </div><hr>
-    <div class="replyFormWrap text-center">
-      <form class="replyForm" action="/inbox/<%= mail._id %>/reply" method="post">
-        <input style="border-radius:8px;text-align:center;" type="text" name="mailReplySubject" placeholder="Subject.."><br><br>
-        <textarea id="replyBody" name="mailReply" required placeholder="Text here..."></textarea><br>
+      <button id="replyBtn"class="text-center btn btn-danger rounded"type="button" data-toggle="collapse" data-target="#demo"><b>Reply</b>  </button><br><br>
+    </div>
+
+    <hr>
+    <div class="replyFormWrap text-center collapse text-center" id="demo">
+      <form class="replyForm form" style="margin: auto; max-width:600px; width:100%;"action="/inbox/<%= mail._id %>/reply" method="post">
+        <input autofocus class="form-control" type="text" name="mailReplySubject" placeholder="Subject.."><br><br>
+        <textarea id="replyBody" class="form-control" name="mailReply" required placeholder="Text here..."></textarea><br>
 
         <button id="replyBtn"type="submit">Reply</button>
       </form>
 
     </div>
 
+<script type="text/javascript">
+  var replyBtn = document.getElementById('replyBtn');
 
+    replyBtn.addEventListener('click', function(){
+      replyBtn.style.display = 'none';
+    })
+</script>
 <% include ../partials/footer %>

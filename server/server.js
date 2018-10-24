@@ -101,7 +101,7 @@ app.post('/login', function(req, res, next) {
     if (err) {
       return res.render('login',{ title:'Link Connect', success : false, errMsg : err.message });
     }
-    
+
     if (! user) {
        res.render('login',{ title:'Link Connect', success : false, errMsg : 'Invalid username or password!' });
     }
@@ -150,17 +150,17 @@ io.on('connection', (socket) => {
 
     socket.join(params.room);
     users.removeUser(socket.id);
-    users.addUser(socket.id, params.name, params.room)
+    users.addUser(socket.id, Mid.capitalizeName(params.name), params.room)
     io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-    socket.emit('newMessage', generateMessage('Admin',`Welcome to Chat Node ${params.name}`));
-    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',`${params.name} has joined the room`));
+    socket.emit('newMessage', generateMessage('Admin',`Welcome to Chat Node ${Mid.capitalizeName(params.name)}`));
+    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',`${Mid.capitalizeName(params.name)} has joined the room`));
     cb();
   });
 
   socket.on('createMessage', (message, cb) => {
     var user = users.getUser(socket.id);
     if (user && isRealString(message.text)) {
-      io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+      io.to(user.room).emit('newMessage', generateMessage(Mid.capitalizeName(user.name), message.text));
     }
     cb();
   });
@@ -168,7 +168,7 @@ io.on('connection', (socket) => {
   socket.on('createLocationMessage', (coords) => {
     var user = users.getUser(socket.id);
     if (user) {
-      io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude))
+      io.to(user.room).emit('newLocationMessage', generateLocationMessage(Mid.capitalizeName(user.name), coords.latitude, coords.longitude))
     }
   });
 
@@ -176,7 +176,7 @@ io.on('connection', (socket) => {
     var user = users.removeUser(socket.id);
     if (user) {
       io.to(user.room).emit('updateUserList', users.getUserList(user.room));
-      io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left.`));
+      io.to(user.room).emit('newMessage', generateMessage('Admin', `${Mid.capitalizeName(user.name)} has left.`));
     }
   });
 });
