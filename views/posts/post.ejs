@@ -41,6 +41,7 @@
                       <button type="submit"> <i class="fa fa-thumbs-down"></i> <%= doc.downvotes.length %></button>
                     </form>
                   <% } %><hr>
+
                   <% if(doc.comments.length > 0) { %>
                     <h3><u>Comments</u> </h3>
                     <div class="userComments">
@@ -80,11 +81,13 @@
                   <% if(user.id !== doc.authorId) { %>
                     <div class="commmentForm">
                       <br><br>
-                      <p><i>Leave a comment</i> </p>
-                      <form class="" role="form" action="/posts/<%= doc.id %>/comments" method="post">
-                        <input autofocus class="form-control" type="text" name="commentBody" placeholder="Comment here...."><br>
-                        <button class="btn btn-default rounded"type="submit">Add Comment</button>
+                      <form class="collapse" id="commentForm" role="form" action="/posts/<%= doc.id %>/comments" method="post">
+                        <input required autofocus class="form-control" type="text" name="commentBody" placeholder="Comment here...."><br>
+                        <button class="btn btn-inverse rounded"type="submit">Add Comment</button>
+                        <a href="#" id="canComBtn" data-toggle="collapse" data-target="#commentForm">Canel</a>
                       </form>
+
+                      <p><button type="button" id="comFormBtn" data-toggle="collapse" data-target="#commentForm"><i>Leave a comment</i></button>  </p>
                     </div>
                   <%} else {%>
 
@@ -99,6 +102,17 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+      var commentFormBtn = document.getElementById('comFormBtn');
+      var cancelComFormBtn = document.getElementById('canComBtn');
 
+        commentFormBtn.addEventListener('click', function(){
+          commentFormBtn.style.display = 'none';
+        });
+        cancelComFormBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          commentFormBtn.style.display = 'inline';
+        });
+    </script>
 
 <% include ../partials/footer %>

@@ -71,17 +71,12 @@ delete user account
 
                 <div class="container">
                   <form class="CloseActForm" action="/user/<%= user.username %>/acct_cancel" method="post">
-                    <div class="">
-                      <h3></h3>
-                      <button class="text-center btn btn-info rounded"type="button" data-toggle="collapse" data-target="#demo"><b>View Your Data Stored</b>  </button><br><br>
-                      <div class="collapse text-center" id="demo">
-                        <div style="max-width:300px; width:100%; margin:10px auto;" class=" pt-3 ">
-                          <%= user %>
-                        </div>
-                      </div>
-
-                    </div><br><br>
-                    <button type="submit" data-toggle="tooltip" title="Are you sure? THIS IS PERMANENT!"class="btn btn-danger rounded pt-3">Close Account</button>
+                    <h4>Close user account.</h4>
+                    <br>
+                    <h4><b style="color:red">WARNING:</b> This is permanent! </h4>
+                    <br>
+                    <br>
+                    <button  style="margin-bottom:"type="submit" data-toggle="tooltip" title="Are you sure?"class="btn btn-danger rounded pt-3">Close Account</button>
                   </form>
                 </div>
 
