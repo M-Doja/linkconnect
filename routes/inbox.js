@@ -13,7 +13,7 @@ router.get('/all', Mid.isLoggedIn, (req, res, next) => {
       console.log(err);
     }
      allMessages.sort(function(a,b){
-      return new Date(b.date) - new Date(a.date);
+      return new Date(a.time) - new Date(b.time);
     });
     res.render('inbox/allMail',{unread: numUnRead, title: 'Link Connect', user:req.user,  inbox: allMessages})
   });

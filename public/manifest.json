@@ -2,7 +2,7 @@
     "name": "Link Connect",
     "short_name" : "Link Connect",
     "start_url": "/",
-    "scope" : "./",
+    "scope" : ".",
     "icons": [
         {
             "src": "/images/favicon.png",
@@ -17,5 +17,6 @@
     ],
     "theme_color": "#ffee00",
     "background_color": "#ffee00",
-    "display": "standalone"
+    "display": "standalone",
+    "orientation": "portrait"
 }

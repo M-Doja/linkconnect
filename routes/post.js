@@ -35,13 +35,11 @@ router.get('/all', Mid.isLoggedIn, (req, res) => {
       allPosts[i].subject = capSentence(allPosts[i].subject);
     }
 
-    allPosts.sort(function(a,b){
-     return new Date(b.date) - new Date(a.date);
-   });
+
 
     var numUnRead = req.user.inbox.length - req.user.seen.length;
   res.render('posts/allPosts', {user: req.user,title: 'Link Connect',unread: numUnRead,entry: allPosts});
-  });
+}).sort({'time': -1});
 });
 
 /* Post Add New Post */
@@ -58,8 +56,7 @@ router.post('/new', Mid.isLoggedIn, function(req, res, next) {
     if (err) {
       return res.send(err);
     }
-    // ONLY 3 POSTS ALLOWED
-    if (user.posts.length < 3) {
+    // if (user.posts.length < 13) {
 
       post.save(function(err, post){
         if (err) {
@@ -78,12 +75,11 @@ router.post('/new', Mid.isLoggedIn, function(req, res, next) {
         });
         res.redirect('/posts/all');
 
-      }); // End of Entry Save fn
-    }else {
-      res.redirect('/user/home');
-    }
+      });
+    // }else {
+    //   res.redirect('/user/home');
+    // }
   });
-  // res.render('posts/allPosts', {user: req.user,title: 'Link Connect'});
 });
 
 /* Get Single Post */
@@ -94,7 +90,7 @@ router.get('/:id', Mid.isLoggedIn, function(req, res, next) {
     }
     var numUnRead = req.user.inbox.length - req.user.seen.length;
 
-    res.render('posts/post', { postTitle: Mid.capitalizeName(post[0].subject), name: Mid.capitalizeName(post[0].author), user: req.user, currentUser:req.user, entry:post,unread: numUnRead, title: 'Link Connect'});
+    res.render('posts/post', { postTitle: Mid.capSentence(post[0].subject), name: Mid.capitalizeName(post[0].author), user: req.user, currentUser:req.user, entry:post,unread: numUnRead, title: 'Link Connect'});
   })
 });
 
