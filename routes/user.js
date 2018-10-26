@@ -60,48 +60,64 @@ router.post('/:username/new/message', Mid.isLoggedIn, (req, res, next) => {
 
 /* GET Profile Page */
 router.get('/:username', Mid.isLoggedIn, function(req, res, next) {
-  User.find({}, function(err, allUsers) {
+  User.findOne({'username': req.params.username}, function(err, userWithProfile) {
     if (err) {
       res.send(err);
     }
-    Post.find({}, function(err, allPosts){
-      if (err) {
-        res.send(err)
-      }
-      var user;
-      var iFollowYou;
-      var numUnRead = req.user.inbox.length - req.user.seen.length;
-      for (var i = 0; i < allUsers.length; i++) {
-        if (allUsers[i].username === req.params.username) {
-          user = allUsers[i];
-          if (req.user.id !== user.id) {
-            numUnRead = 0
-          }
-          req.user.following.forEach((followedUser) => {
-            if (followedUser.id) {
-              if (followedUser.id === user.id) {
-                iFollowYou = true;
-                return iFollowYou;
-              }
-            }
-          });
-          for (var i = 0; i < user.posts.length; i++) {
-            user.posts[i].postName = Mid.capSentence(user.posts[i].postName);
-          }
-          var name = Mid.capitalizeName(user.username)
-          res.render('users/profile', {
-            title: 'Link Connect',
-            currentUser: req.user,
-            user: user,
-            allUsers: allUsers,
-            unread: numUnRead,
-            entry: allPosts,
-            name: name,
-            isFollowing: iFollowYou
-          });
+    var iFollowYou, user;
+    req.user.following.forEach((followedUser) => {
+      if (followedUser.id) {
+        if (followedUser.id === userWithProfile.id) {
+          iFollowYou = true;
+          return iFollowYou;
         }
       }
     });
+
+    if (userWithProfile.username === req.user.username) { // Seeing Own Profile
+      Post.find({'author': userWithProfile.username}, function(err, usersOwnPosts) {
+        if (err) {
+          res.send(err);
+        }
+        for (var i = 0; i < usersOwnPosts.length; i++) {
+          usersOwnPosts[i].postName = Mid.capSentence(usersOwnPosts[i].postName);
+        }
+
+        var name = Mid.capitalizeName(userWithProfile.username)
+        var numUnRead = req.user.inbox.length - req.user.seen.length;
+        User.find({}, function(err, allUsers){
+          if (err) {
+            res.send(err);
+          }
+          res.render('users/profile', {
+            title: 'Link Connect',
+            currentUser: req.user,
+            user: userWithProfile,
+            allUsers: allUsers,
+            unread: numUnRead,
+            name: name,
+            isFollowing: iFollowYou
+          });
+        });
+      });
+    }else { // Seeing Another Users Profile
+      var name = Mid.capitalizeName(userWithProfile.username)
+      var numUnRead = req.user.inbox.length - req.user.seen.length;
+      User.find({}, function(err, allUsers){
+        if (err) {
+          res.send(err);
+        }
+        res.render('users/profile', {
+          title: 'Link Connect',
+          currentUser: req.user,
+          user: userWithProfile,
+          allUsers: allUsers,
+          unread: numUnRead,
+          name: name,
+          isFollowing: iFollowYou
+        });
+      });
+    }
   });
 });
 

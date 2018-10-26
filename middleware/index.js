@@ -18,12 +18,14 @@ module.exports = {
   capSentence: function(str){
     var cell = []
     var words = '';
-    str = str.split(' ');
-    for (let i = 0; i < str.length; i++) {
-      cell.push(str[i].charAt(0).toUpperCase() + str[i].slice(1).toLowerCase())
-    }
-    for (var i = 0; i < cell.length; i++) {
-      words += cell[i] + ' ';
+    if (typeof str === 'string') {
+      str = str.split(' ');
+      for (let i = 0; i < str.length; i++) {
+        cell.push(str[i].charAt(0).toUpperCase() + str[i].slice(1).toLowerCase())
+      }
+      for (var i = 0; i < cell.length; i++) {
+        words += cell[i] + ' ';
+      }
     }
     return words;
   }

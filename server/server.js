@@ -61,13 +61,13 @@ app.use(require('express-session')({
   resave: false,
   saveUninitialized: false
 }));
-app.use(function(req, res, next) {
-    if (req.session.user === null){
-      return res.redirect('/');
-    }   else{
-        next();
-    }
-});
+// app.use(function(req, res, next) {
+//     if (req.session.user === null){
+//       return res.redirect('/login');
+//     }   else{
+//         next();
+//     }
+// });
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -179,6 +179,12 @@ io.on('connection', (socket) => {
       io.to(user.room).emit('newMessage', generateMessage('Admin', `${Mid.capitalizeName(user.name)} has left.`));
     }
   });
+});
+
+app.use(function(err, req, res, next) {
+    if(401 == err.status) {
+        res.render('users/login')
+    }
 });
 
 app.use('/user', usersRouter);
