@@ -6,15 +6,15 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>        
+        </ul>
       </div>
     </nav>
     <div class="container-fluid jumbotron">
       <div class="text-center">
         <h3>Sign-Up</h3>
         <form class="container form-group" style="width:100%;max-width: 500px;" action="/register" method="post">
-          <input class="form-control" autofocus type="text"  pattern=".{3,}"   required title="3 characters minimum" name="username" placeholder="User name">
-          <input class="form-control" type="text" name="password" pattern=".{2,10}" required title="2 to 10 characters"placeholder="Password">
+          <input class="form-control" autofocus type="text"  pattern=".{3,}" autocomplete="off"   required title="3 characters minimum" name="username" placeholder="User name">
+          <input class="form-control" type="password" autocomplete="off"  name="password" pattern=".{2,10}" required title="2 to 10 characters"placeholder="Password">
           <div class="text-center"><br>
             <input  class=""type="submit">
             <a class="" href="/">Cancel</a>
