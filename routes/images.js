@@ -1,4 +1,4 @@
-var config = require('../config');
+var config = require('../lib');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');

@@ -11,21 +11,25 @@
 </nav>
 
 
-    <div class="container-fluid jumbotron">
-      <div class="text-center">
-        <h3>Log-In</h3>
-        <form class="form-group container" style="width:100%;max-width: 500px;" action="/login" method="post">
-          <input class="form-control" required autofocus type="text" name="username" placeholder="User name">
-          <input class="form-control" autocomplete="off" type="password"required name="password" placeholder="Password">
-          <div class="text-center"><br>
-            <input type="submit">
-            <a href="/">Cancel</a>
-          </div>
-        </form>
+    <div class="picWrap">
+
+      <div class="container-fluid jumbotron">
+        <div class="text-center">
+          <h3>Log-In</h3>
+          <form class="form-group container" style="width:100%;max-width: 500px;" action="/login" method="post">
+            <input class="form-control" required autofocus type="text" name="username" placeholder="User name">
+            <input class="form-control" autocomplete="off" type="password"required name="password" placeholder="Password">
+            <div class="text-center"><br>
+              <input type="submit">
+              <a href="/">Cancel</a>
+            </div>
+          </form>
+        </div>
+        <div class="text-center">
+          <h3><i><%= errMsg %></i> </h3>
+        </div>
       </div>
-      <div class="text-center">
-        <h3><i><%= errMsg %></i> </h3>
-      </div>
+      
     </div>
 
 <% include partials/footer %>

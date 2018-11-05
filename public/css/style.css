@@ -2,6 +2,63 @@ body {
   padding: 10px 25px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+img#landing {
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: -500px;
+}
+@media screen and (max-width: 500px) {
+  img#landing {
+    margin-top: -250px;
+  }
+  .titleDiv {
+    margin-top: 75px;
+    font-weight: bold;
+    font-size: 6vw;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  img#landing {
+    margin-bottom: -700px;
+  }
+  .titleDiv {
+    margin-top: 75px;
+    font-weight: bold;
+    font-size: 7vw;
+  }
+  .picWrap {
+    height: 420px;
+    margin-top: 50px
+  }
+  .jumbotron {
+    margin-top: 50px;
+  }
+}
+
+@media screen and ( min-width: 1000px) {
+  img#landing {
+    margin-bottom: -850px;
+  }
+  .titleDiv {
+    margin-top: 75px;
+    font-weight: bold;
+    font-size: 6vw;
+  }
+
+}
+.jumbotron {
+  background-color: rgba(255, 255, 255, 0.75);
+  border: 3px solid #000;
+  border-radius: 12px;
+}
+.picWrap {
+  padding: 25px;
+  background-image: url('/images/social-networking.jpg');
+  background-position: center;
+  border-radius: 12px;
+}
 
 a {
   color: #00B7FF;
