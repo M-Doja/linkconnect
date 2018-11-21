@@ -1,4 +1,15 @@
+var bodyParser = require('body-parser');
+var csrf = require('csurf');
+// var csrfProtection = csrf({cookie: true});
+// var parseForm = bodyParser.urlencoded({extended: false});
+
 module.exports = {
+  parseForm: function(req, res, next){
+    return bodyParser.urlencoded({extended: false});
+  },
+  csrfProtection: function(req, res, next){
+    return csrf({cookie: true});
+  },
   isLoggedIn: function(req, res, next){
     if (req.isAuthenticated()) {
       return next();

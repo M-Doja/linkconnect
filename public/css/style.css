@@ -1,6 +1,19 @@
 body {
   padding: 10px 25px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px Verdana, Geneva, sans-serif;
+  color: #000;
+  text-shadow: .3px .5px .1px gold;
+  /* background-color: rgb(17, 32, 78); */
+
+  /* background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%); */
+
+  /* background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; */
+ /* background-blend-mode: multiply,multiply; */
+
+background-image: radial-gradient(circle, red, yellow, green);
+
+
+
 }
 img#landing {
   width: 100%;

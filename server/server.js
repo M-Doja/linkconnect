@@ -1,6 +1,8 @@
 var config = require('./../lib');
 var createError = require('http-errors');
 var express = require('express');
+var csrf = require('csurf');
+var helmet = require('helmet');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -27,7 +29,6 @@ var  app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
 var users = new Users();
-var userRouter = require('./../routes/user');
 
 var url
 if (process.env.NODE_ENV === 'production') {
@@ -45,6 +46,14 @@ mongoose.connect(url,(err, db) => {
   db = db;
 });
 
+app.use(helmet());
+// app.use(csrf());
+
+// app.use((req, res, next) => {
+  // res.locals.csrftoken = req.csrfToken();
+  // next();
+// })
+
 // view engine setup
 app.set('views', path.join(__dirname, '/../views'));
 app.set('view engine', 'ejs');
@@ -57,17 +66,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('express-session')({
-  secret: 'config.Session_Secret',
+  secret: config.Session_Secret,
+  key: 'myCookieSessionId',
+  cookie: {
+    expires: new Date( Date.now() + 60 * 60 * 1000)
+  },
   resave: false,
   saveUninitialized: false
 }));
-// app.use(function(req, res, next) {
-//     if (req.session.user === null){
-//       return res.redirect('/login');
-//     }   else{
-//         next();
-//     }
-// });
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -117,7 +124,6 @@ app.post('/login', function(req, res, next) {
 
 /* POST Sign Up */
 app.post('/register', (req, res) => {
-
   User.register(new User({
     username: req.body.username,
   }),req.body.password, (err, user) => {
@@ -181,9 +187,19 @@ io.on('connection', (socket) => {
   });
 });
 
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send('Something broke')
+})
+
 app.use(function(err, req, res, next) {
     if(401 == err.status) {
-        res.render('users/login')
+      res.render('error', {err:err});
+    }
+    if (404 == err.status) {
+      console.log(err);
+      res.send("Page not found!");
     }
 });
 

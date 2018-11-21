@@ -1,6 +1,7 @@
 <% include ../partials/header %>
 <style media="screen">
   #Postbtn {color:#fff;font-weight: bold;}
+  #addPostBtn:hover { color:red}
 </style>
   <% include ../partials/nav %>
 
@@ -9,7 +10,7 @@
 
       </div>
       <div class="row">
-        <div class="container jumbotron">
+        <div class="container jumbotron" style="max-width:700px;width:100;">
           <h3 class="text-center">
             <% if(entry.length === 1) { %>
               <p> Currently <%= entry.length %> document available to view.</p>
@@ -18,7 +19,7 @@
             <% } %>
           </h3>
           <form class="text-center"action="/posts/new" method="GET">
-            <button class="btn btn-inverse btn-block" type="submit">Add A New Post</button>
+            <button  id="addPostBtn"style="border:1.5px solid #000;font-weight:bold;" class="btn btn-inverse btn-block" type="submit">Add A New Post</button>
           </form><br><br>
 
 
@@ -29,7 +30,7 @@
 
                 <% entry.forEach(function(doc){ %>
                   <div class="doc" >
-                    <h2><a href="/posts/<%= doc.id %>" ><%= doc.subject %></a></h2>
+                    <h2><a style="color:#000;font-family:impact" href="/posts/<%= doc.id %>" ><%= doc.subject %></a></h2>
 
                       <p style="font-size: 18px;">Published: <%= doc.date.toLocaleDateString() %></p>
                   </div>

@@ -35,17 +35,17 @@
   align-items: center;
 }
 @media screen and (max-width:1200px) {
-  .wrapper{
+  .wrapper-3{
     grid-template-columns: auto auto auto
   }
 }
 @media screen and (max-width:860px) {
-  .wrapper{
+  .wrapper-2{
     grid-template-columns: auto auto
   }
 }
 @media screen and (max-width:600px) {
-  .wrapper{
+  .wrapper-1{
     grid-template-columns: auto;
   }
 }
@@ -71,8 +71,8 @@
   </div>
   <br>
 
-  <div class="row">
-    <ul class="wrapper" id="myUL">
+  <div class="row jumbotron text-center">
+    <ul class="wrapper wrapper-1 wrapper-2 wrapper-3" id="myUL">
       <% users.forEach(function(user){ %>
         <li class="item">
           <a href="/user/<%= user.username %>">
