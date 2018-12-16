@@ -1,18 +1,16 @@
 <% include partials/header %>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/"><%= title %></a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="picWrap">
+<br><br><br>
 
-      <div class="container-fluid jumbotron">
-        <div class="text-center">
+
+
+
+  <div class="">
+
+    <div class="container-fluid well" style="background-color:#000; color:#fff;">
+
+
+
+      <div class="text-center">
           <h3>Sign-Up</h3>
           <form class="container form-group" style="width:100%;max-width: 500px;" action="/register" method="post">
             <input class="form-control" autofocus type="text"  pattern=".{3,}" autocomplete="off"   required title="3 characters minimum" name="username" placeholder="User name">
@@ -25,6 +23,10 @@
         </div>
         <div class="text-center">
           <h3><i><%= errMsg %></i> </h3>
+        </div>
+
+        <div class="text-center">
+            <a class="log" style="text-align:center" href="/login">Already a member? <span class="glyphicon glyphicon-user"></span> Log In</a>
         </div>
       </div>
 

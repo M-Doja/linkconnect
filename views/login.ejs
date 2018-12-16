@@ -1,23 +1,25 @@
 <% include partials/header %>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/"><%= title %></a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-    </ul>
-  </div>
-</nav>
+  <br><br><br>
 
 
-    <div class="picWrap">
 
-      <div class="container-fluid jumbotron">
+
+    <div class="">
+
+      <div class="container-fluid well" style="background-color:#000; color:#fff;">
+
+        <!-- <div class="navbar-header">
+          <br>
+          <div class="log" style="padding:15px" class="navbar-brand" href="/"><%= title %></div>
+        </div> -->
+
+
         <div class="text-center">
           <h3>Log-In</h3>
-          <form class="form-group container" style="width:100%;max-width: 500px;" action="/login" method="post">
-            <input class="form-control" required autofocus type="text" name="username" placeholder="User name">
+          <form class="form-group container" style="color:#000;width:100%;max-width: 500px;" action="/login" method="post">
+
+
+            <input class="form-control" required autofocus autocomplete="off" type="text" name="username" placeholder="User name">
             <input class="form-control" autocomplete="off" type="password"required name="password" placeholder="Password">
             <div class="text-center"><br>
               <input type="submit">
@@ -28,8 +30,15 @@
         <div class="text-center">
           <h3><i><%= errMsg %></i> </h3>
         </div>
+        <hr>
+        <div class="text-center">
+            <a class="log" style="text-align:center" href="/register">Not a member yet? <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+        </div>
+
+
+
       </div>
-      
+
     </div>
 
 <% include partials/footer %>
