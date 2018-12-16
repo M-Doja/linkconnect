@@ -7,7 +7,7 @@ var Mid = require('../middleware');
 
 /* Get Post Add Page */
 router.get('/new', Mid.isLoggedIn, function(req, res, next) {
-  res.render('posts/newPost', {user: req.user,title: 'Link Connect'});
+  res.render('posts/newPost', {user: req.user,title: 'Red Raven Social'});
 });
 
 
@@ -38,7 +38,7 @@ router.get('/all', Mid.isLoggedIn, (req, res) => {
 
 
     var numUnRead = req.user.inbox.length - req.user.seen.length;
-  res.render('posts/allPosts', {user: req.user,title: 'Link Connect',unread: numUnRead,entry: allPosts});
+  res.render('posts/allPosts', {user: req.user,title: 'Red Raven Social',unread: numUnRead,entry: allPosts});
 }).sort({'time': -1});
 });
 
@@ -90,7 +90,7 @@ router.get('/:id', Mid.isLoggedIn, function(req, res, next) {
     }
     var numUnRead = req.user.inbox.length - req.user.seen.length;
 
-    res.render('posts/post', { postTitle: Mid.capSentence(post[0].subject), name: Mid.capitalizeName(post[0].author), user: req.user, currentUser:req.user, entry:post,unread: numUnRead, title: 'Link Connect'});
+    res.render('posts/post', { postTitle: Mid.capSentence(post[0].subject), name: Mid.capitalizeName(post[0].author), user: req.user, currentUser:req.user, entry:post,unread: numUnRead, title: 'Red Raven Social'});
   })
 });
 
@@ -100,7 +100,7 @@ router.post('/update/:id', Mid.isLoggedIn, function(req, res, next){
     if (err) {
       res.send(err);
     }
-    res.render('posts/updatePost', {user: req.user, title: 'Link Connect', ent: ent });
+    res.render('posts/updatePost', {user: req.user, title: 'Red Raven Social', ent: ent });
   });
 });
 

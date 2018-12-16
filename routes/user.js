@@ -11,7 +11,7 @@ var Message = require('../models/message');
 router.get('/home', Mid.isLoggedIn, function(req, res, next) {
   var numUnRead = req.user.inbox.length - req.user.seen.length;
   var userName = Mid.capitalizeName(req.user.username);
-  res.render('users/home', {title: 'Link Connect', name: userName, user: req.user, unread: numUnRead});
+  res.render('users/home', {title: 'Red Raven Social', name: userName, user: req.user, unread: numUnRead});
 });
 
 // Show All Messgaes
@@ -24,7 +24,7 @@ router.get('/all', Mid.isLoggedIn, (req, res, next) => {
      allMessages.sort(function(a,b){
       return new Date(b.date) - new Date(a.date);
     });
-    res.render('inbox/allMail',{unread: numUnRead, title: 'Link Connect', user:req.user,  inbox: allMessages})
+    res.render('inbox/allMail',{unread: numUnRead, title: 'Red Raven Social', user:req.user,  inbox: allMessages})
   });
 });
 
@@ -90,7 +90,7 @@ router.get('/:username', Mid.isLoggedIn, function(req, res, next) {
             res.send(err);
           }
           res.render('users/profile', {
-            title: 'Link Connect',
+            title: 'Red Raven Social',
             currentUser: req.user,
             user: userWithProfile,
             allUsers: allUsers,
@@ -108,7 +108,7 @@ router.get('/:username', Mid.isLoggedIn, function(req, res, next) {
           res.send(err);
         }
         res.render('users/profile', {
-          title: 'Link Connect',
+          title: 'Red Raven Social',
           currentUser: req.user,
           user: userWithProfile,
           allUsers: allUsers,
@@ -124,7 +124,7 @@ router.get('/:username', Mid.isLoggedIn, function(req, res, next) {
 /* GET Profile Settings Page */
 router.get('/:username/settings', Mid.isLoggedIn, function(req, res, next) {
   var numUnRead = req.user.inbox.length - req.user.seen.length;
-  res.render('users/settings', {title: 'Link Connect', user: req.user, unread:numUnRead});
+  res.render('users/settings', {title: 'Red Raven Social', user: req.user, unread:numUnRead});
 });
 
 
@@ -153,7 +153,7 @@ router.get('/community/all', Mid.isLoggedIn, function(req, res, next) {
     var numUnRead = req.user.inbox.length - req.user.seen.length;
 
     res.render('users/community', {
-      title: 'Link Connect',
+      title: 'Red Raven Social',
       user: req.user,
       users: allUsers,
       unread: numUnRead,
@@ -216,7 +216,7 @@ router.post('/add/follow/:id', Mid.isLoggedIn, (req, res, next) => {
     });
     var numUnRead = req.user.inbox.length - req.user.seen.length;
 
-   res.render('users/profile', {unread:numUnRead, isFollowing: 'iFollowYou', currentUser : req.user, user : userFollowed, entry:[], text: "Welcome back to your page",title: 'Link Connect', msg: [], docs: '', profile: ''});
+   res.render('users/profile', {unread:numUnRead, isFollowing: 'iFollowYou', currentUser : req.user, user : userFollowed, entry:[], text: "Welcome back to your page",title: 'Red Raven Social', msg: [], docs: '', profile: ''});
  });
 });
 

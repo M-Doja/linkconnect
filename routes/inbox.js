@@ -15,7 +15,7 @@ router.get('/all', Mid.isLoggedIn, (req, res, next) => {
      allMessages.sort(function(a,b){
       return new Date(a.time) - new Date(b.time);
     });
-    res.render('inbox/allMail',{unread: numUnRead, title: 'Link Connect', user:req.user,  inbox: allMessages})
+    res.render('inbox/allMail',{unread: numUnRead, title: 'Red Raven Social', user:req.user,  inbox: allMessages})
   });
 });
 
@@ -45,7 +45,7 @@ router.get('/read/:id',Mid.isLoggedIn, (req, res, next) => {
       if (req.user.inbox.length === 0) {
         numUnRead = 0
       }
-      res.render('inbox/message', {unread: 0, mail:mail, user: req.user, title: 'Link Connect'});
+      res.render('inbox/message', {unread: 0, mail:mail, user: req.user, title: 'Red Raven Social'});
     })
   });
 });
