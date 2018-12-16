@@ -83,17 +83,17 @@ passport.deserializeUser(User.deserializeUser());
 
 /* Render Landing Page */
 app.get('/', (req, res,next) => {
-  res.render('index', { title: 'Link Connect' , user: ''});
+  res.render('index', { title: 'Red Raven Social' , user: ''});
 });
 
 /* Render Login Form */
 app.get('/login', (req, res, next) => {
-  res.render('login',{title:"Link Connect",errMsg: '', user: '' });
+  res.render('login',{title:"Red Raven Social",errMsg: '', user: '' });
 });
 
 /* Render Register Form */
 app.get('/register', (req, res, next) => {
-  res.render('register',{title:"Link Connect", errMsg: '', user: '' });
+  res.render('register',{title:"Red Raven Social", errMsg: '', user: '' });
 });
 
 /* GET Log Out Page*/
@@ -106,16 +106,16 @@ app.get('/logout', (req, res) => {
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user) {
     if (err) {
-      return res.render('login',{ title:'Link Connect', success : false, errMsg : err.message });
+      return res.render('login',{ title:'Red Raven Social', success : false, errMsg : err.message });
     }
 
     if (! user) {
-       res.render('login',{ title:'Link Connect', success : false, errMsg : 'Invalid username or password!' });
+       res.render('login',{ title:'Red Raven Social', success : false, errMsg : 'Invalid username or password!' });
     }
 
     req.login(user, function(err){
       if(err){
-        return res.render('login',{ title:'Link Connect', success : false, errMsg : err.message });
+        return res.render('login',{ title:'Red Raven Social', success : false, errMsg : err.message });
       }
        res.redirect('/user/home');
     });
@@ -129,7 +129,7 @@ app.post('/register', (req, res) => {
   }),req.body.password, (err, user) => {
     if (err) {
       console.log(err);
-      return res.render('register',{title:'Link Connect', errMsg: err.message});
+      return res.render('register',{title:'Red Raven Social', errMsg: err.message});
     }
     passport.authenticate('local')(req, res, function(){
       res.redirect('/user/home');
@@ -158,7 +158,7 @@ io.on('connection', (socket) => {
     users.removeUser(socket.id);
     users.addUser(socket.id, Mid.capitalizeName(params.name), params.room)
     io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-    socket.emit('newMessage', generateMessage('Admin',`Welcome to Chat Node ${Mid.capitalizeName(params.name)}`));
+    socket.emit('newMessage', generateMessage('Admin',`Welcome to Red Raven Social Chat ${Mid.capitalizeName(params.name)}`));
     socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',`${Mid.capitalizeName(params.name)} has joined the room`));
     cb();
   });
