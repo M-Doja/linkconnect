@@ -1,6 +1,6 @@
 {
-    "name": "Link Connect",
-    "short_name" : "Link Connect",
+    "name": "Red Raven Social",
+    "short_name" : "Red Raven Social",
     "start_url": "/",
     "scope" : ".",
     "icons": [
