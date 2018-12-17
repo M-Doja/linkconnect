@@ -2,7 +2,7 @@ body {
   padding: 10px 25px;
   font: 14px Verdana, Geneva, sans-serif;
   color: #000;
-  text-shadow: 1.5px 1.5px 2px #ff3333;
+  text-shadow: .5px .5px 2px #ff3333;
   background-color: #333;
   /* background-color: rgb(17, 32, 78); */
 
@@ -26,7 +26,6 @@ img#landing {
   background-position: center;
   margin-bottom: -500px;
 }
-.titleDiv {  text-shadow: .5px .5px 2px #ff3333;}
 @media screen and (max-width: 500px) {
   img#landing {
     margin-top: -250px;
