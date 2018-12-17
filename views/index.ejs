@@ -1,8 +1,8 @@
 <% include partials/header %>
 
 <ul class="nav navbar-nav navbar-right">
-  <li><a style="border-radius: 20px;"class="log" href="/register"><span class="log glyphicon glyphicon-user"></span> Sign Up</a></li>
-  <li><a style="border-radius: 20px;"class="log" href="/login"><span class="log glyphicon glyphicon-log-in"></span> Login</a></li>
+  <li><a data-toggle="modal" data-target="#newUserModal" style="border-radius: 20px;"class="log" href="#"><span class="log glyphicon glyphicon-user"></span> Sign Up</a></li>
+  <li><a data-toggle="modal" data-target="#loginModal" style="border-radius: 20px;"class="log" href="#"><span class="log glyphicon glyphicon-log-in"></span> Login</a></li>
 </ul>
 
 
@@ -11,12 +11,16 @@
           <h1><b><%= title %></b> </h1>
           <!-- <p><%= title %></p> -->
           <div class="raven-wrap" style="background-color:red; border-radius:50%;width:250px; height:250px;padding-top:40px;margin: 15px auto;box-shadow: .2px .2px 6px #fff;border:5px solid #000;">
-            <img src="/raven2.png"  width="200" alt="">
+            <a style="text-decoration:none;" href="/"><img src="/raven2.png"  width="200" alt=""></a>
           </div>
         </div>
         <div class="row">
         </div>
+        <div class="text-center" style="margin-bottom:50px;">
+          <h3><i><%= errMsg %></i> </h3>
+        </div>
       </div>
 
-
+<% include partials/regModel %>
+<% include partials/logModel %>
 <% include partials/footer %>

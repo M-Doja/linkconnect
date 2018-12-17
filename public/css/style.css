@@ -16,6 +16,9 @@ body {
 
 
 }
+.model {
+  background-color: #333;
+}
 .log{ color:#fff;}
 img#landing {
   width: 100%;

@@ -83,7 +83,7 @@ passport.deserializeUser(User.deserializeUser());
 
 /* Render Landing Page */
 app.get('/', (req, res,next) => {
-  res.render('index', { title: 'Red Raven Social' , user: ''});
+  res.render('index', { title: 'Red Raven Social' , user: '', errMsg: ''});
 });
 
 /* Render Login Form */
@@ -110,7 +110,7 @@ app.post('/login', function(req, res, next) {
     }
 
     if (! user) {
-       res.render('login',{ title:'Red Raven Social', success : false, errMsg : 'Invalid username or password!' });
+       res.render('index',{ title:'Red Raven Social', success : false, errMsg : 'Invalid username or password!' });
     }
 
     req.login(user, function(err){
@@ -129,7 +129,7 @@ app.post('/register', (req, res) => {
   }),req.body.password, (err, user) => {
     if (err) {
       console.log(err);
-      return res.render('register',{title:'Red Raven Social', errMsg: err.message});
+      return res.render('index',{title:'Red Raven Social', errMsg: err.message});
     }
     passport.authenticate('local')(req, res, function(){
       res.redirect('/user/home');
